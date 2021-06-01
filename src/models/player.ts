@@ -17,7 +17,7 @@ import Friend from "./friend";
 const ModelName = "player"
 
 @Table
-export class Player extends Model {
+export default class Player extends Model {
     @PrimaryKey
     @IsUUID(4)
     @NotNull
@@ -34,7 +34,7 @@ export class Player extends Model {
     @ForeignKey(()=>Party)
     @IsUUID(4)
     @AllowNull
-    @Column({allowNull: false})
+    @Column
     partyId!: string;
 
     @BelongsTo(()=>Party)
