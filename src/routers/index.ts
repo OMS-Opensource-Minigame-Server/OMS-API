@@ -1,13 +1,13 @@
 import { PathRouter as ExampleRouter } from './example'
-import { PathRouter as PlayerRouter } from './playerRouter'
-import { PathRouter as PartyRouter } from './partyRouter'
-import { PathRouter as FriendRouter } from './friendRouter'
-import { PathRouter as FriendRequestRouter } from './friendRequestRouter'
-import { PathRouter as RankRouter } from './rankRouter'
-import { PathRouter as CurrencyRouter } from './currencyRouter'
-import { PathRouter as CurrencyNameRouter } from './currencyNameRouter'
-import { PathRouter as CurrencyConversionRatioRouter } from './currencyConversionRatioRouter'
-import { PathRouter as CurrencyHeldRouter } from './currencyHeldRouter'
+import { pathRouter as PlayerRouter } from './playerRouter'
+import { pathRouter as PartyRouter } from './partyRouter'
+import { pathRouter as FriendRouter } from './friendRouter'
+import { pathRouter as FriendRequestRouter } from './friendRequestRouter'
+import { pathRouter as RankRouter } from './rankRouter'
+import { pathRouter as CurrencyRouter } from './currencyRouter'
+import { pathRouter as CurrencyNameRouter } from './currencyNameRouter'
+import { pathRouter as CurrencyConversionRatioRouter } from './currencyConversionRatioRouter'
+import { pathRouter as CurrencyHeldRouter } from './currencyHeldRouter'
 
 
 // All routers must be registered here to be loaded by the Express application.
@@ -15,7 +15,7 @@ import { PathRouter as CurrencyHeldRouter } from './currencyHeldRouter'
 // This as name is used when logging, so is kind of useful to keep track of.
 
 export {
-    //ExampleRouter,
+//    ExampleRouter,
     PlayerRouter,
     PartyRouter,
     FriendRouter,

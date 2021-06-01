@@ -1,10 +1,23 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize-typescript'
+import Currency from "../models/currency";
+import CurrencyHeld from "../models/currencyHeld";
+import CurrencyName from "../models/currencyName";
+import Friend from "../models/friend";
+import Party from "../models/party";
+import {Player} from "../models/player";
+import Rank from "../models/rank";
+import CurrencyConversionRatio from "../models/currencyConversionRatio";
 
-//TODO: Replace with pg, currently testing in-memory with sqlite::memory. Remove dependency when removed!
-const Database = new Sequelize("sqlite::memory:", {
-    logging: false
+// TODO: Replace with pg, currently testing in-memory with sqlite::memory. Remove dependency when removed!
+const database = new Sequelize({
+    database: 'some_db',
+    dialect: 'sqlite',
+    username: 'root',
+    password: '',
+    storage: ':memory:',
+    models: [Currency, CurrencyConversionRatio, CurrencyHeld, CurrencyName, Friend, Party, Player, Rank] // or [Player, Team],
 })
 
 export {
-    Database
+    database
 }

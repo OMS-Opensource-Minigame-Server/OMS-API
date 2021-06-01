@@ -1,24 +1,19 @@
-import { DataTypes } from "sequelize"
-import {ModelAttributes} from "sequelize/types/lib/model";
+import {AllowNull, Column, HasMany, IsUUID, Model, NotNull, PrimaryKey, Table} from "sequelize-typescript";
+import {Player} from "./player";
 
-const ModelName = "Party"
+@Table
+export default class Party extends Model {
 
-const Model: ModelAttributes = {
-    UUID: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Name: {
-        type: DataTypes.CHAR,
-        allowNull: false
-    },
-    Members: {
-        type: DataTypes.ARRAY(DataTypes.UUIDV4),
-        allowNull: false
-    }
-}
+    @IsUUID(4)
+    @PrimaryKey
+    @NotNull
+    @Column({allowNull: false})
+    uuid!: string;
 
-export {
-    ModelName,
-    Model
+    @NotNull
+    @Column({allowNull: false})
+    name!: string;
+
+    @HasMany(()=>Player)
+    players!: Player[]
 }

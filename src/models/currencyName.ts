@@ -1,21 +1,23 @@
-import { DataTypes } from "sequelize"
-import {ModelAttributes} from "sequelize/types/lib/model";
+import {Column, ForeignKey, IsUUID, Model, NotNull, Table, BelongsTo, PrimaryKey, AllowNull} from "sequelize-typescript";
 
-const ModelName = "CurrencyName"
+const ModelName = "currency_name"
 
-const Model: ModelAttributes = {
-    UUID: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Singular: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Plural: {
-        type: DataTypes.CHAR,
-        allowNull: false
-    }
+@Table
+export default class CurrencyName extends Model {
+
+    @IsUUID(4)
+    @PrimaryKey
+    @NotNull
+    @Column({allowNull: false})
+    uuid!: string;
+
+    @NotNull
+    @Column({allowNull: false})
+    singular!: string;
+
+    @NotNull
+    @Column({allowNull: false})
+    plural!: string;
 }
 
 export {

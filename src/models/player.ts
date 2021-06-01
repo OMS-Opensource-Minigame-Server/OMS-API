@@ -1,36 +1,51 @@
-import { DataTypes } from "sequelize"
-import {ModelAttributes} from "sequelize/types/lib/model";
+import {
+    AllowNull,
+    BelongsTo, BelongsToMany,
+    Column,
+    ForeignKey,
+    HasMany, HasOne,
+    IsUUID,
+    Model,
+    NotNull,
+    PrimaryKey,
+    Table
+} from "sequelize-typescript";
+import Party from "./party";
+import Rank from "./rank";
+import Friend from "./friend";
 
-const ModelName = "Player"
+const ModelName = "player"
 
-const Model: ModelAttributes = {
-    UUID: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Username: {
-        type: DataTypes.CHAR,
-        allowNull: false
-    },
-    PlayerFriends: {
-        type: DataTypes.ARRAY(DataTypes.UUIDV4),
-        allowNull: true
-    },
-    PlayerFriendRequests: {
-        type: DataTypes.ARRAY(DataTypes.UUIDV4),
-        allowNull: true
-    },
-    PlayerCurrencies: {
-        type: DataTypes.ARRAY(DataTypes.UUIDV4),
-        allowNull: true
-    },
-    PlayerRank: {
-        type: DataTypes.ARRAY(DataTypes.UUIDV4),
-        allowNull: true
-    }
-}
+@Table
+export class Player extends Model {
+    @PrimaryKey
+    @IsUUID(4)
+    @NotNull
+    @Column({allowNull: false})
+    uuid!: string;
 
-export {
-    ModelName,
-    Model
+    @NotNull
+    @Column({allowNull: false})
+    username!: string;
+
+    @BelongsToMany(()=>Player, ()=>Friend,"playerID", "friendID")
+    friends!: Player[];
+
+    @ForeignKey(()=>Party)
+    @IsUUID(4)
+    @AllowNull
+    @Column({allowNull: false})
+    partyId!: string;
+
+    @BelongsTo(()=>Party)
+    party!: Party;
+
+    @ForeignKey(()=>Rank)
+    @IsUUID(4)
+    @NotNull
+    @Column({allowNull: false})
+    rankID!: string;
+
+    @BelongsTo(()=>Rank)
+    rank!: Rank;
 }

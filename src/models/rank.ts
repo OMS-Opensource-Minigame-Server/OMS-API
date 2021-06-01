@@ -1,32 +1,28 @@
-import { DataTypes } from "sequelize"
-import {ModelAttributes} from "sequelize/types/lib/model";
+import {AllowNull, Column, Default, HasMany, IsUUID, Model, NotNull, PrimaryKey, Table} from "sequelize-typescript";
 
-const ModelName = "Rank"
+@Table
+export default class Rank extends Model {
 
-const Model: ModelAttributes = {
-    UUID: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Name: {
-        type: DataTypes.CHAR,
-        allowNull: false
-    },
-    Colour: {
-        type: DataTypes.CHAR(24).BINARY,
-        defaultValue: 111111111111111111111111
-    },
-    Title: {
-        type: DataTypes.CHAR,
-        allowNull: false
-    },
-    Priority: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
-}
+    @PrimaryKey
+    @IsUUID(4)
+    @NotNull
+    @Column({allowNull: false})
+    uuid!: string;
 
-export {
-    ModelName,
-    Model
+    @NotNull
+    @Column({allowNull: false})
+    name!: string;
+
+    @NotNull
+    @Default(0)
+    @Column({allowNull: false})
+    colour!: number;
+
+    @NotNull
+    @Column({allowNull: false})
+    title!: string;
+
+//    @Column
+//    @NotNull
+//    priority: number;
 }

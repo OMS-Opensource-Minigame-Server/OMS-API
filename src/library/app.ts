@@ -1,22 +1,38 @@
 import Express from "express"
 import * as Routers from "../routers"
-import * as Models from '../models'
 import * as Utils from './utils'
-import { Database } from './sequelize'
+import { database } from './sequelize'
+import Rank from "../models/rank";
+import {v4 as uuid} from "uuid";
+import {Player} from "../models/player";
+import Friend from "../models/friend";
 
-const Application = Express()
-Application.use(Express.json())
+const app = Express()
+app.use(Express.json())
 
-for(const [RouterKey, Router] of Object.entries(Routers)){
-    Utils.logRoutes(RouterKey, Router)
-    Application.use(Router)
+for(const [routerKey, router] of Object.entries(Routers)){
+    Utils.logRoutes(routerKey, router)
+    app.use(router)
 }
 
-for(const Model of Object.values(Models)){
-    Database.define(Model.ModelName, Model.Model)
-    Database.sync()
-}
+(async ()=>{
+    await database.sync();
+
+    const rank: Rank = new Rank({uuid:uuid(), name: "default", title: "Default"});
+    await rank.save();
+    let player: Player | null = new Player( {uuid: uuid(), username: "test", rankID: rank.uuid});
+    await player.save();
+    const player2: Player | null = new Player( {uuid: uuid(), username: "test2", rankID: rank.uuid});
+    await player2.save();
+
+    const friendship: Friend = new Friend({playerID: player.uuid, friendID: player2.uuid})
+    await friendship.save()
+
+    player = await Player.findOne({include: [Rank, "friends"], where: {username: player.username}});
+
+    // console.log(JSON.stringify(player?.friends));
+})();
 
 export {
-    Application
+    app
 }

@@ -1,34 +1,32 @@
-//An example router which is dynamically loaded by Express once registered in \routers\index.ts
-
 import { Router } from "express";
 
-const PathRouter = Router()
-const Path = '/currency/:id/conversion/:did?'
+const pathRouter = Router()
+const path = '/currency/:id/conversion/:did?'
 
-PathRouter.get(Path, async (request, response, next)=>{
+pathRouter.get(path, async (request, response, next)=>{
     response
         .status(200)
         .end()
 })
 
-PathRouter.post(Path, (request, response, next)=>{
+pathRouter.post(path, (request, response, next)=>{
     response
         .status(200)
         .end()
 })
 
-PathRouter.patch(Path, (request, response, next)=>{
+pathRouter.patch(path, (request, response, next)=>{
     response
         .status(200)
         .end()
 })
 
-PathRouter.delete(Path, (request, response, next)=>{
+pathRouter.delete(path, (request, response, next)=>{
     response
         .status(200)
         .end()
 })
 
 export {
-    PathRouter
+    pathRouter
 }

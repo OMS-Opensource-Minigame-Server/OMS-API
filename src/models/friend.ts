@@ -1,20 +1,24 @@
-import { DataTypes } from "sequelize"
-import {ModelAttributes} from "sequelize/types/lib/model";
+import {Column, ForeignKey, IsUUID, Model, NotNull, Table, BelongsTo, Default} from "sequelize-typescript";
+import {Player} from "./player";
 
-const ModelName = "Friend"
-
-const Model: ModelAttributes = {
-    SourceFriend: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    DestinationFriend: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    }
+export enum FriendshipStatus {
+    ACCEPTED,
+    PENDING,
+    DENIED
 }
 
-export {
-    ModelName,
-    Model
+@Table
+export default class Friend extends Model {
+
+    @ForeignKey(()=>Player)
+    @Column
+    playerID!: string;
+
+    @ForeignKey(()=>Player)
+    @Column
+    friendID!: string;
+
+    @Default(FriendshipStatus.PENDING)
+    @Column
+    status!: FriendshipStatus
 }

@@ -1,29 +1,45 @@
-import { DataTypes } from "sequelize"
-import {ModelAttributes} from "sequelize/types/lib/model";
+import {
+    Column,
+    ForeignKey,
+    IsUUID,
+    Model,
+    NotNull,
+    Table,
+    BelongsTo,
+    PrimaryKey,
+    AllowNull,
+    HasMany
+} from "sequelize-typescript";
+import CurrencyName from "./currencyName";
+import CurrencyConversionRatio from "./currencyConversionRatio";
 
-const ModelName = "Currency"
+const ModelName = "currency"
 
-const Model: ModelAttributes = {
-    UUID: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Name: {
-        type: DataTypes.UUIDV4,
-        allowNull: false
-    },
-    Prefix: {
-        type: DataTypes.CHAR,
-        allowNull: true
-    },
-    Postfix: {
-        type: DataTypes.CHAR,
-        allowNull: true
-    },
-    ConversionRatio: {
-        type: DataTypes.UUIDV4,
-        allowNull: true
-    }
+@Table
+export default class Currency extends Model {
+
+    @IsUUID(4)
+    @PrimaryKey
+    @NotNull
+    @Column({allowNull: false})
+    uuid!: string;
+
+    @ForeignKey(()=>CurrencyName)
+    @NotNull
+    @IsUUID(4)
+    @Column({allowNull: false})
+    nameID!: string
+
+    @AllowNull
+    @Column
+    prefix!: string;
+
+    @AllowNull
+    @Column
+    postfix!: string;
+
+    @HasMany(()=>CurrencyConversionRatio)
+    conversionRatios!: CurrencyConversionRatio[]
 }
 
 export {

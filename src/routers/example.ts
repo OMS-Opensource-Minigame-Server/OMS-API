@@ -1,4 +1,4 @@
-//An example router which is dynamically loaded by Express once registered in \routers\index.ts
+// An example router which is dynamically loaded by Express once registered in \routers\index.ts
 
 import { Router } from "express";
 

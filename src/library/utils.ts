@@ -1,22 +1,25 @@
 import { Router } from "express";
 
-const log = (...args: Array<any>)=>{
-    if(environmentVariable('environment', { silent: true }) == "development"){
+const log = (...args: any[])=>{
+    if(environmentVariable('environment', { silent: true }) === "development"){
+        // tslint:disable-next-line:no-console
         console.log(args.join(' '))
     }
 }
 
 const logRoutes = (routerKey: string, router: Router)=>{
-     if(environmentVariable('environment',  { silent: true }) == "development"){
-        let parsedRoutes = router.stack.map(r=> {
+     if(environmentVariable('environment',  { silent: true }) === "development"){
+        const parsedRoutes = router.stack.map(r=> {
             return {
                 "path": r.route.path,
                 "methods": Object.keys(r.route.methods)
             }
         })
+         // tslint:disable-next-line:no-console
         console.log(`[OMS-API] Registering router ${routerKey} with routes:`)
-        for(let route of parsedRoutes){
-            for(let method of route.methods){
+        for(const route of parsedRoutes){
+            for(const method of route.methods){
+                // tslint:disable-next-line:no-console
                 console.log(`   ${method.toUpperCase()} ${route.path.toUpperCase()}`)
             }
         }
