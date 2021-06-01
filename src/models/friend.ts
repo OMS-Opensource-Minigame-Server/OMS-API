@@ -1,5 +1,5 @@
 import {Column, ForeignKey, IsUUID, Model, NotNull, Table, BelongsTo, Default} from "sequelize-typescript";
-import {Player} from "./player";
+import Player from "./player";
 
 export enum FriendshipStatus {
     ACCEPTED,

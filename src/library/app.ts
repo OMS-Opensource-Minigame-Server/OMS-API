@@ -4,7 +4,7 @@ import * as Utils from './utils'
 import { database } from './sequelize'
 import Rank from "../models/rank";
 import {v4 as uuid} from "uuid";
-import {Player} from "../models/player";
+import Player from "../models/player";
 import Friend from "../models/friend";
 
 const app = Express()
@@ -30,7 +30,7 @@ for(const [routerKey, router] of Object.entries(Routers)){
 
     player = await Player.findOne({include: [Rank, "friends"], where: {username: player.username}});
 
-    // console.log(JSON.stringify(player?.friends));
+    console.log(JSON.stringify(player?.friends));
 })();
 
 export {
