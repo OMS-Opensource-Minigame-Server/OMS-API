@@ -4,7 +4,7 @@ import CurrencyHeld from "../models/currencyHeld";
 import CurrencyName from "../models/currencyName";
 import Friend from "../models/friend";
 import Party from "../models/party";
-import {Player} from "../models/player";
+import Player from "../models/player";
 import Rank from "../models/rank";
 import CurrencyConversionRatio from "../models/currencyConversionRatio";
 
@@ -14,8 +14,9 @@ const database = new Sequelize({
     dialect: 'sqlite',
     username: 'root',
     password: '',
+    logging: false,
     storage: ':memory:',
-    models: [Currency, CurrencyConversionRatio, CurrencyHeld, CurrencyName, Friend, Party, Player, Rank] // or [Player, Team],
+    models: [__dirname + '/../models'],
 })
 
 export {
