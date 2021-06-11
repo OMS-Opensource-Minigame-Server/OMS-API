@@ -3,7 +3,6 @@ import {
     BelongsTo, BelongsToMany,
     Column,
     ForeignKey,
-    HasMany, HasOne,
     IsUUID,
     Model,
     NotNull,
@@ -13,8 +12,6 @@ import {
 import Party from "./party";
 import Rank from "./rank";
 import Friend from "./friend";
-
-const ModelName = "player"
 
 @Table
 export default class Player extends Model {
@@ -29,7 +26,13 @@ export default class Player extends Model {
     username!: string;
 
     @BelongsToMany(()=>Player, ()=>Friend,"playerID", "friendID")
-    friends!: Player[];
+    friendsSent!: Player[];
+    @BelongsToMany(()=>Player, ()=>Friend,"friendID", "playerID")
+    friendsReceived!: Player[];
+
+    get friends(): Player[] {
+        return [...this.friendsSent,...this.friendsReceived];
+    }
 
     @ForeignKey(()=>Party)
     @IsUUID(4)
@@ -44,7 +47,7 @@ export default class Player extends Model {
     @IsUUID(4)
     @NotNull
     @Column({allowNull: false})
-    rankID!: string;
+    rankId!: string;
 
     @BelongsTo(()=>Rank)
     rank!: Rank;

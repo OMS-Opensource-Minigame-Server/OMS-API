@@ -26,6 +26,12 @@ const logRoutes = (routerKey: string, router: Router)=>{
     }
 }
 
+const validateMinecraftUsername = (playerUsername: string)=>{
+    const playerUsernameRegex: RegExp = /^\w+$/i
+    const playerUsernameValid: boolean = playerUsernameRegex.test(playerUsername)
+    return playerUsernameValid && playerUsername?.length >= 3 && playerUsername?.length <= 16;
+}
+
 const environmentVariable = (key: string, options = {silent: false}): string => {
     if(!key) throw new Error(`The first argument must be a string!`)
 
@@ -44,5 +50,6 @@ const environmentVariable = (key: string, options = {silent: false}): string => 
 export {
     log,
     logRoutes,
-    environmentVariable
+    environmentVariable,
+    validateMinecraftUsername
 }
